@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlintaPoC.Contracts\AlintaPoC.Contracts.csproj" />
+    <ProjectReference Include="..\AlintaPoC.Data\AlintaPoC.Data.csproj" />
+    <ProjectReference Include="..\AlintaPoC.Domain\AlintaPoC.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Domain", "AlintaPoC.Domain\AlintaPoC.Domain.csproj", "{60DEF093-116E-4D26-A19E-E37C944759A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{5E980C7E-7FA9-4AA6-B10A-95DE9BA73974}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Data", "AlintaPoC.Data\AlintaPoC.Data.csproj", "{42ABE18E-4615-4088-9363-E8AA22666C14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Contracts", "AlintaPoC.Contracts\AlintaPoC.Contracts.csproj", "{32E45B79-795B-43BA-9718-EAC07039C51D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Application", "AlintaPoC.Application\AlintaPoC.Application.csproj", "{8B1E1317-BD17-4F7B-8F0E-BC0575F0813E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.API", "AlintaPoC.API\AlintaPoC.API.csproj", "{7BDE2722-DD0B-434B-87D6-2AC2498A81D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60DEF093-116E-4D26-A19E-E37C944759A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60DEF093-116E-4D26-A19E-E37C944759A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60DEF093-116E-4D26-A19E-E37C944759A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60DEF093-116E-4D26-A19E-E37C944759A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E980C7E-7FA9-4AA6-B10A-95DE9BA73974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E980C7E-7FA9-4AA6-B10A-95DE9BA73974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E980C7E-7FA9-4AA6-B10A-95DE9BA73974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E980C7E-7FA9-4AA6-B10A-95DE9BA73974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42ABE18E-4615-4088-9363-E8AA22666C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42ABE18E-4615-4088-9363-E8AA22666C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42ABE18E-4615-4088-9363-E8AA22666C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42ABE18E-4615-4088-9363-E8AA22666C14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32E45B79-795B-43BA-9718-EAC07039C51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32E45B79-795B-43BA-9718-EAC07039C51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32E45B79-795B-43BA-9718-EAC07039C51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32E45B79-795B-43BA-9718-EAC07039C51D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B1E1317-BD17-4F7B-8F0E-BC0575F0813E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B1E1317-BD17-4F7B-8F0E-BC0575F0813E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B1E1317-BD17-4F7B-8F0E-BC0575F0813E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B1E1317-BD17-4F7B-8F0E-BC0575F0813E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BDE2722-DD0B-434B-87D6-2AC2498A81D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BDE2722-DD0B-434B-87D6-2AC2498A81D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BDE2722-DD0B-434B-87D6-2AC2498A81D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BDE2722-DD0B-434B-87D6-2AC2498A81D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5AFA2E1E-75CA-4080-897D-0AB0ABB5E5A1}
+	EndGlobalSection
+EndGlobal
