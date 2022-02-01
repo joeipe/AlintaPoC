@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlintaPoC.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220131234035_entityConfig")]
-    partial class entityConfig
+    [Migration("20220131235303_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -3,6 +3,7 @@ using AlintaPoC.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace AlintaPoC.Data
 {
@@ -26,7 +27,8 @@ namespace AlintaPoC.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new PersonConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.ApplyConfiguration(new PersonConfiguration());
         }
     }
 }
