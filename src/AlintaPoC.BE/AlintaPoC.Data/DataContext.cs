@@ -1,7 +1,9 @@
-﻿using AlintaPoC.Domain;
+﻿using AlintaPoC.Data.EntityConfiguration;
+using AlintaPoC.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace AlintaPoC.Data
 {
@@ -19,6 +21,14 @@ namespace AlintaPoC.Data
             : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //modelBuilder.ApplyConfiguration(new PersonConfiguration());
         }
     }
 }
