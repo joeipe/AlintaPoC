@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getAllPeople } from '../../api/dataApiService'
+import PersonList from './PersonList'
 
 function PersonPage () {
   const [people, setPeople] = useState([])
@@ -15,30 +16,7 @@ function PersonPage () {
       <Link to='/person/0' className='btn btn-lg btn-primary'>
         &spades; Add
       </Link>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>DoB</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {people?.map(person => {
-            return (
-              <tr key={person.id}>
-                <td>{person.firstName}</td>
-                <td>{person.lastName}</td>
-                <td>{person.doB}</td>
-                <td>
-                  <Link to={`/person/${person.id}`}>Edit</Link>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+      <PersonList people={people} />
     </div>
   )
 }
