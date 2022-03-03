@@ -32,10 +32,6 @@ namespace AlintaPoC.Application.Services
 
         public PersonDto GetPersonById(int id)
         {
-            if (id != 0)
-            {
-                throw new Exception("Man made error");
-            }
             var data = _dataService.GetPersonById(id);
             var vm = _mapper.Map<PersonDto>(data);
             return vm;
