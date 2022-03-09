@@ -10,15 +10,17 @@ namespace AlintaPoC.Application.Services
     public interface IAppService
     {
         IList<PersonDto> GetAllPeople();
-
         PersonDto GetPersonById(int id);
-
         void AddPerson(PersonDto value);
-
         void UpdatePerson(PersonDto value);
-
         void DeletePerson(int id);
+        PersonDto GetPersonsDetailsById(int id);
 
-        void AddTwoPeople(PersonDto value);
+
+        IList<RoleDto> GetAllRoles();
+        RoleDto GetRoleById(int id);
+        void AddRole(RoleDto value);
+        void UpdateRole(RoleDto value);
+        void DeleteRole(int id);
     }
 }

@@ -1,9 +1,8 @@
 ﻿using AlintaPoC.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlintaPoC.Data.Services
 {
@@ -40,23 +39,50 @@ namespace AlintaPoC.Data.Services
             _uow.Save();
         }
 
+        public Person GetPersonsDetailsById(int id)
+        {
+            var data = _uow.PersonRepo.SearchForInclude
+                (
+                    a => a.Id == id,
+                    source => source.Include(x => x.Role)
+                ).FirstOrDefault();
+            return data;
+        }
+
+
         public void DeletePerson(int id)
         {
             _uow.PersonRepo.Delete(id);
             _uow.Save();
         }
 
-        public void AddTwoPeople(Person data)
+        public IEnumerable<Role> GetAllRoles()
         {
-            _uow.PersonRepo.Update(data);
-            var newPerson = new Person
-            {
-                FirstName = data.FirstName + "Cloned",
-                LastName = data.LastName + "Cloned",
-                DoB = data.DoB
-            };
-            _uow.PersonRepo.Create(newPerson);
+            var data = _uow.RoleRepo.GetAll();
+            return data;
+        }
 
+        public Role GetRoleById(int id)
+        {
+            var data = _uow.RoleRepo.GetById(id);
+            return data;
+        }
+
+        public void AddRole(Role data)
+        {
+            _uow.RoleRepo.Create(data);
+            _uow.Save();
+        }
+
+        public void UpdateRole(Role data)
+        {
+            _uow.RoleRepo.Update(data);
+            _uow.Save();
+        }
+
+        public void DeleteRole(int id)
+        {
+            _uow.RoleRepo.Delete(id);
             _uow.Save();
         }
     }

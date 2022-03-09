@@ -22,6 +22,10 @@ namespace AlintaPoC.Data.EntityConfiguration
             builder.Property(value => value.DoB)
                 .HasColumnType("date")
                 .IsRequired();
+
+            builder.HasOne(y => y.Role)
+                .WithMany(x => x.People)
+                .HasForeignKey(y => y.RoleId);
         }
     }
 }

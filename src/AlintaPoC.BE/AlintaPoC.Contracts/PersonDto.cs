@@ -8,5 +8,7 @@ namespace AlintaPoC.Contracts
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DoB { get; set; }
+        public int RoleId { get; set; }
+        public RoleDto Role { get; set; }
     }
 }

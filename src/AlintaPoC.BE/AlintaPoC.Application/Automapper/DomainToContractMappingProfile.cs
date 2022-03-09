@@ -15,7 +15,9 @@ namespace AlintaPoC.Application.Automapper
         public DomainToContractMappingProfile()
         {
             CreateMap<Person, PersonDto>()
-                .ForMember(dest => dest.DoB, opt => opt.MapFrom(src => src.DoB.ParseDate())); ; ;
+                .ForMember(dest => dest.DoB, opt => opt.MapFrom(src => src.DoB.ParseDate()));
+
+            CreateMap<Role, RoleDto>();
         }
     }
 }
