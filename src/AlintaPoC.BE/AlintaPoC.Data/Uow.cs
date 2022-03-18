@@ -17,7 +17,6 @@ namespace AlintaPoC.Data
         }
 
         public GenericRepository<Person> PersonRepo { get { return new GenericRepository<Person>(_context); } }
-        public GenericRepository<Role> RoleRepo { get { return new GenericRepository<Role>(_context); } }
 
         public void Save()
         {

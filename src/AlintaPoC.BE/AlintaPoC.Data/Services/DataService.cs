@@ -39,50 +39,9 @@ namespace AlintaPoC.Data.Services
             _uow.Save();
         }
 
-        public Person GetPersonsDetailsById(int id)
-        {
-            var data = _uow.PersonRepo.SearchForInclude
-                (
-                    a => a.Id == id,
-                    source => source.Include(x => x.Role)
-                ).FirstOrDefault();
-            return data;
-        }
-
-
         public void DeletePerson(int id)
         {
             _uow.PersonRepo.Delete(id);
-            _uow.Save();
-        }
-
-        public IEnumerable<Role> GetAllRoles()
-        {
-            var data = _uow.RoleRepo.GetAll();
-            return data;
-        }
-
-        public Role GetRoleById(int id)
-        {
-            var data = _uow.RoleRepo.GetById(id);
-            return data;
-        }
-
-        public void AddRole(Role data)
-        {
-            _uow.RoleRepo.Create(data);
-            _uow.Save();
-        }
-
-        public void UpdateRole(Role data)
-        {
-            _uow.RoleRepo.Update(data);
-            _uow.Save();
-        }
-
-        public void DeleteRole(int id)
-        {
-            _uow.RoleRepo.Delete(id);
             _uow.Save();
         }
     }

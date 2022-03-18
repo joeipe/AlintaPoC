@@ -10,7 +10,6 @@ namespace AlintaPoC.Data
     public class DataContext : DbContext
     {
         public DbSet<Person> People { get; set; }
-        public DbSet<Role> Roles { get; set; }
 
         /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

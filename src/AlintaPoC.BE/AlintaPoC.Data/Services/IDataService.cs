@@ -14,13 +14,5 @@ namespace AlintaPoC.Data.Services
         void AddPerson(Person data);
         void UpdatePerson(Person data);
         void DeletePerson(int id);
-        Person GetPersonsDetailsById(int id);
-
-
-        IEnumerable<Role> GetAllRoles();
-        Role GetRoleById(int id);
-        void AddRole(Role data);
-        void UpdateRole(Role data);
-        void DeleteRole(int id);
     }
 }

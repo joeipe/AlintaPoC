@@ -14,13 +14,5 @@ namespace AlintaPoC.Application.Services
         void AddPerson(PersonDto value);
         void UpdatePerson(PersonDto value);
         void DeletePerson(int id);
-        PersonDto GetPersonsDetailsById(int id);
-
-
-        IList<RoleDto> GetAllRoles();
-        RoleDto GetRoleById(int id);
-        void AddRole(RoleDto value);
-        void UpdateRole(RoleDto value);
-        void DeleteRole(int id);
     }
 }

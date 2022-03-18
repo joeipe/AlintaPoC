@@ -53,45 +53,5 @@ namespace AlintaPoC.Application.Services
         {
             _dataService.DeletePerson(id);
         }
-
-        public PersonDto GetPersonsDetailsById(int id)
-        {
-            var data = _dataService.GetPersonsDetailsById(id);
-            var vm = _mapper.Map<PersonDto>(data);
-            return vm;
-        }
-
-
-
-        public IList<RoleDto> GetAllRoles()
-        {
-            var data = _dataService.GetAllRoles();
-            var vm = _mapper.Map<IList<RoleDto>>(data);
-            return vm;
-        }
-
-        public RoleDto GetRoleById(int id)
-        {
-            var data = _dataService.GetRoleById(id);
-            var vm = _mapper.Map<RoleDto>(data);
-            return vm;
-        }
-
-        public void AddRole(RoleDto value)
-        {
-            var data = _mapper.Map<Role>(value);
-            _dataService.AddRole(data);
-        }
-
-        public void UpdateRole(RoleDto value)
-        {
-            var data = _mapper.Map<Role>(value);
-            _dataService.UpdateRole(data);
-        }
-
-        public void DeleteRole(int id)
-        {
-            _dataService.DeleteRole(id);
-        }
     }
 }

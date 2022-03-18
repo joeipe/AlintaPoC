@@ -16,8 +16,6 @@ namespace AlintaPoC.Application.Automapper
         {
             CreateMap<PersonDto, Person>()
                 .ForMember(dest => dest.DoB, opt => opt.MapFrom(src => src.DoB.ParseDate()));
-
-            CreateMap<RoleDto, Role>();
         }
     }
 }
