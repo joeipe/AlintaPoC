@@ -1,6 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import moment from 'moment'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 function PersonForm (props) {
+  function formatDateToString (dateString) {
+    var dateObject = new Date()
+    if (dateString !== '') {
+      dateObject = moment(dateString, 'DD/MM/YYYY').toDate();
+    }
+    return dateObject
+  }
+
   return (
     <form>
       <div className='form-group row'>
@@ -18,9 +29,7 @@ function PersonForm (props) {
             required
           />
           {props.errors.firstName && (
-            <small className='text-danger'>
-              {props.errors.firstName}
-            </small>
+            <small className='text-danger'>{props.errors.firstName}</small>
           )}
         </div>
       </div>
@@ -39,9 +48,7 @@ function PersonForm (props) {
             required
           />
           {props.errors.lastName && (
-            <small className='text-danger'>
-              {props.errors.lastName}
-            </small>
+            <small className='text-danger'>{props.errors.lastName}</small>
           )}
         </div>
       </div>
@@ -50,19 +57,13 @@ function PersonForm (props) {
           DoB
         </label>
         <div className='col-sm-10'>
-          <input
-            id='doB'
-            type='text'
-            name='doB'
-            onChange={props.onChange}
-            className='form-control'
-            value={props.person.doB || ''}
-            required
+          <DatePicker
+            selected={formatDateToString(props.person.doB)}
+            dateFormat='dd/MM/yyyy'
+            onChange={props.onDateChange}
           />
           {props.errors.doB && (
-            <small className='text-danger'>
-              {props.errors.doB}
-            </small>
+            <small className='text-danger'>{props.errors.doB}</small>
           )}
         </div>
       </div>

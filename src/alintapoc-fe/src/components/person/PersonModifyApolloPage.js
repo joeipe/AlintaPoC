@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
+import moment from 'moment'
 import { gql, useQuery, useMutation } from '@apollo/client'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import PersonForm from './PersonForm'
@@ -63,6 +64,10 @@ function PersonModifyApolloPage () {
       ...person,
       [target.name]: target.value
     })
+  }
+
+  function handleDateChange (date) {
+    setPerson({ ...person, doB: moment(date).format('DD/MM/YYYY') })
   }
 
   function formIsValid () {
@@ -136,6 +141,7 @@ function PersonModifyApolloPage () {
         person={person}
         errors={errors}
         onChange={handleChange}
+        onDateChange={handleDateChange}
         onSubmit={handleSubmit}
         onDelete={handleDelete}
       />

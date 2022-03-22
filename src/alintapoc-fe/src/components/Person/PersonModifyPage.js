@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import moment from 'moment'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import PersonForm from './PersonForm'
 import * as dataApiService from '../../api/dataApiService'
@@ -6,7 +7,7 @@ import * as dataApiService from '../../api/dataApiService'
 function PersonModifyPage () {
   const { id } = useParams()
   let navigate = useNavigate()
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({})
   const [actionName, setActionName] = useState('')
   const [person, setPerson] = useState({
     id: 0,
@@ -37,16 +38,21 @@ function PersonModifyPage () {
     })
   }
 
-  function formIsValid() {
-    const _errors = {};
+  function handleDateChange (date) {
+    var val = { ...person, doB: moment(date).format('DD/MM/YYYY') }
+    setPerson(val)
+  }
 
-    if (!person.firstName) _errors.firstName = "First Name is required";
-    if (!person.lastName) _errors.lastName = "Last Name is required";
-    if (!person.doB) _errors.doB = "DoB is required";
+  function formIsValid () {
+    const _errors = {}
 
-    setErrors(_errors);
+    if (!person.firstName) _errors.firstName = 'First Name is required'
+    if (!person.lastName) _errors.lastName = 'Last Name is required'
+    if (!person.doB) _errors.doB = 'DoB is required'
 
-    return Object.keys(_errors).length === 0;
+    setErrors(_errors)
+
+    return Object.keys(_errors).length === 0
   }
 
   function handleBack () {
@@ -60,7 +66,7 @@ function PersonModifyPage () {
   }
 
   function handleSubmit () {
-    if (!formIsValid()) return;
+    if (!formIsValid()) return
 
     if (actionName === 'Edit') {
       editPerson()
@@ -91,7 +97,14 @@ function PersonModifyPage () {
       <Link to='/person' className='btn btn-lg btn-primary'>
         &laquo; Back
       </Link>
-      <PersonForm person={person} errors={errors} onChange={handleChange} onSubmit={handleSubmit} onDelete={handleDelete} />
+      <PersonForm
+        person={person}
+        errors={errors}
+        onChange={handleChange}
+        onDateChange={handleDateChange}
+        onSubmit={handleSubmit}
+        onDelete={handleDelete}
+      />
     </div>
   )
 }
