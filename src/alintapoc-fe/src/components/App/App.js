@@ -7,6 +7,8 @@ import AboutPage from '../AboutPage'
 import PersonPage from '../person/PersonPage'
 import PersonModifyPage from '../person/PersonModifyPage'
 import NotFoundPage from '../NotFoundPage'
+import PersonApolloPage from '../person/PersonApolloPage'
+import PersonModifyApolloPage from '../person/PersonModifyApolloPage'
 
 function App () {
   return (
@@ -19,6 +21,8 @@ function App () {
           <Route path='/about' element={<AboutPage />} />
           <Route path='/person' element={<PersonPage />} />
           <Route path='/person/:id' element={<PersonModifyPage />} />
+          <Route path='/personapollo' element={<PersonApolloPage />} />
+          <Route path='/personapollo/:id' element={<PersonModifyApolloPage />} />
         </Routes>
       </main>
     </>

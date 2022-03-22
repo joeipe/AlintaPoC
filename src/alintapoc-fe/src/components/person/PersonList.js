@@ -20,7 +20,8 @@ function PersonList (props) {
               <td>{person.lastName}</td>
               <td>{person.doB}</td>
               <td>
-                <Link to={`/person/${person.id}`}>Edit</Link>
+                <Link to={`/person/${person.id}`}>Edit</Link>&nbsp;
+                <Link to={`/personapollo/${person.id}`}>EditApollo</Link>
               </td>
             </tr>
           )

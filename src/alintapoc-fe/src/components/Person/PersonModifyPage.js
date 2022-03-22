@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import PersonForm from './PersonForm'
 import * as dataApiService from '../../api/dataApiService'
 
-function PersonModifyPage (props) {
+function PersonModifyPage () {
   const { id } = useParams()
   let navigate = useNavigate()
   const [errors, setErrors] = useState({});
@@ -76,8 +76,6 @@ function PersonModifyPage (props) {
   }
 
   function addPerson () {
-    if (!formIsValid()) return;
-
     dataApiService.addPerson(person).then(() => {
       handleBack()
     })
