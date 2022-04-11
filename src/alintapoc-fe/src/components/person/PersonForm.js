@@ -5,17 +5,16 @@ import 'react-datepicker/dist/react-datepicker.css'
 
 function PersonForm (props) {
   function formatDateToString (dateString) {
-    var dateObject = new Date()
-    if (dateString !== '') {
-      dateObject = moment(dateString, 'DD/MM/YYYY').toDate();
+    if (dateString !== '' && dateString !== 'Invalid date') {
+      return moment(dateString, 'DD/MM/YYYY').toDate();
     }
-    return dateObject
+    return null
   }
 
   return (
     <form>
-      <div className='form-group row'>
-        <label htmlFor='firstName' className='col-sm-2 col-form-label required'>
+      <div className='form-group row required'>
+        <label htmlFor='firstName' className='col-sm-2 col-form-label control-label'>
           First Name
         </label>
         <div className='col-sm-10'>
@@ -33,8 +32,8 @@ function PersonForm (props) {
           )}
         </div>
       </div>
-      <div className='form-group row'>
-        <label htmlFor='lastName' className='col-sm-2 col-form-label required'>
+      <div className='form-group row required'>
+        <label htmlFor='lastName' className='col-sm-2 col-form-label control-label'>
           Last Name
         </label>
         <div className='col-sm-10'>
@@ -52,8 +51,8 @@ function PersonForm (props) {
           )}
         </div>
       </div>
-      <div className='form-group row'>
-        <label htmlFor='doB' className='col-sm-2 col-form-label required'>
+      <div className='form-group row required'>
+        <label htmlFor='doB' className='col-sm-2 col-form-label control-label'>
           DoB
         </label>
         <div className='col-sm-10'>
@@ -80,6 +79,7 @@ function PersonForm (props) {
           value='Delete'
           className='btn btn-primary'
           onClick={props.onDelete}
+          disabled={props.person.id === 0}
         />
       </div>
     </form>

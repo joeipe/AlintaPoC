@@ -52,7 +52,7 @@ function PersonModifyApolloPage () {
     } else {
       setActionName('Add')
     }
-  }, [id])
+  }, [id, person])
 
   const [addPer, { called, error }] = useMutation(ADD_PERSON)
   const [updatePer] = useMutation(UPDATE_PERSON)
@@ -79,7 +79,7 @@ function PersonModifyApolloPage () {
 
     setErrors(_errors)
 
-    return Object.keys(_errors).length === '0'
+    return Object.keys(_errors).length === 0
   }
 
   function handleBack () {
@@ -93,7 +93,7 @@ function PersonModifyApolloPage () {
   }
 
   function handleSubmit () {
-    //if (!formIsValid()) return
+    if (!formIsValid()) return
 
     if (actionName === 'Edit') {
       editPerson()
