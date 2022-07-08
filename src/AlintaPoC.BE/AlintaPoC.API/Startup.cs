@@ -36,7 +36,7 @@ namespace AlintaPoC.API
 
             services.AddControllers();
 
-            services.AddScoped(c => new TableServiceClient("DefaultEndpointsProtocol=https;AccountName=alintapocstorage;AccountKey=uDgvz0AMGPFgOzS5dLhU/2O8fR+BRtWr+MJ+TCZAa7Rub7tjYInljOZIkeUowsn/ktDcB+hChXow+AStj4Zc5A==;EndpointSuffix=core.windows.net"));
+            services.AddScoped(c => new TableServiceClient(Configuration.GetConnectionString("StorageConnectionString")));
             services.AddDbContext<DataContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DBConnectionString"))
                 );
