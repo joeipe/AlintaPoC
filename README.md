@@ -5,3 +5,4 @@
 - React
 - GraphQL
 - Azure Table Storage
+- Redic Cache
