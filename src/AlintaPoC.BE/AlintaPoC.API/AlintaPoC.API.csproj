@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Data.Tables" Version="12.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -14,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlintaPoC.Application\AlintaPoC.Application.csproj" />
+    <ProjectReference Include="..\AlintaPoC.Integration.TableStorage\AlintaPoC.Integration.TableStorage.csproj" />
   </ItemGroup>
 
 </Project>

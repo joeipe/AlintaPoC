@@ -1,6 +1,8 @@
 ﻿using AlintaPoC.Contracts;
 using AlintaPoC.Data.Services;
 using AlintaPoC.Domain;
+using AlintaPoC.Integration.TableStorage.Domain;
+using AlintaPoC.Integration.TableStorage.Repositories;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -14,13 +16,16 @@ namespace AlintaPoC.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly IDataService _dataService;
+        private readonly ITodoRepository _todoRepository;
 
         public AppService(
             IMapper mapper,
-            IDataService dataService)
+            IDataService dataService,
+            ITodoRepository todoRepository)
         {
             _mapper = mapper;
             _dataService = dataService;
+            _todoRepository = todoRepository;
         }
 
         public IList<PersonDto> GetAllPeople()
@@ -52,6 +57,39 @@ namespace AlintaPoC.Application.Services
         public void DeletePerson(int id)
         {
             _dataService.DeletePerson(id);
+        }
+
+
+
+        public async Task<IList<TodoDto>> GetAllTodoAsync()
+        {
+            var data = await _todoRepository.GetAllTodoAsync();
+            var vm = _mapper.Map<IList<TodoDto>>(data);
+            return vm;
+        }
+
+        public async Task<TodoDto> GetTodoByIdAsync(string partitionKey, string rowKey)
+        {
+            var data = await _todoRepository.GetTodoByIdAsync(partitionKey, rowKey);
+            var vm = _mapper.Map<TodoDto>(data);
+            return vm;
+        }
+
+        public async Task AddTodoAsync(TodoDto value)
+        {
+            var data = _mapper.Map<TodoEntity>(value);
+            await _todoRepository.AddTodoAsync(data);
+        }
+
+        public async Task UpdateTodoAsync(TodoDto value)
+        {
+            var data = _mapper.Map<TodoEntity>(value);
+            await _todoRepository.UpdateTodoAsync(data);
+        }
+
+        public async Task DeleteTodoAsync(string partitionKey, string rowKey)
+        {
+            await _todoRepository.DeleteTodoAsync(partitionKey, rowKey);
         }
     }
 }

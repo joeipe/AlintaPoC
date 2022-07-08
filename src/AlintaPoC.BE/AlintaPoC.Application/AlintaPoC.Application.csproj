@@ -12,6 +12,7 @@
     <ProjectReference Include="..\AlintaPoC.Contracts\AlintaPoC.Contracts.csproj" />
     <ProjectReference Include="..\AlintaPoC.Data\AlintaPoC.Data.csproj" />
     <ProjectReference Include="..\AlintaPoC.Domain\AlintaPoC.Domain.csproj" />
+    <ProjectReference Include="..\AlintaPoC.Integration.TableStorage\AlintaPoC.Integration.TableStorage.csproj" />
   </ItemGroup>
 
 </Project>

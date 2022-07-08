@@ -2,6 +2,8 @@ using AlintaPoC.API.Configurations;
 using AlintaPoC.Application.Services;
 using AlintaPoC.Data;
 using AlintaPoC.Data.Services;
+using AlintaPoC.Integration.TableStorage.Repositories;
+using Azure.Data.Tables;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,12 +36,14 @@ namespace AlintaPoC.API
 
             services.AddControllers();
 
+            services.AddScoped(c => new TableServiceClient("DefaultEndpointsProtocol=https;AccountName=alintapocstorage;AccountKey=uDgvz0AMGPFgOzS5dLhU/2O8fR+BRtWr+MJ+TCZAa7Rub7tjYInljOZIkeUowsn/ktDcB+hChXow+AStj4Zc5A==;EndpointSuffix=core.windows.net"));
             services.AddDbContext<DataContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DBConnectionString"))
                 );
             services.AddScoped<Uow>();
             services.AddScoped<IDataService, DataService>();
             services.AddScoped<IAppService, AppService>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
             services.AddAutoMapperSetup();
 
             services.AddCors(options =>

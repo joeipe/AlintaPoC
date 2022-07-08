@@ -1,5 +1,6 @@
 ﻿using AlintaPoC.Contracts;
 using AlintaPoC.Domain;
+using AlintaPoC.Integration.TableStorage.Domain;
 using AutoMapper;
 using SharedKernel.Extensions;
 using System;
@@ -16,6 +17,7 @@ namespace AlintaPoC.Application.Automapper
         {
             CreateMap<PersonDto, Person>()
                 .ForMember(dest => dest.DoB, opt => opt.MapFrom(src => src.DoB.ParseDate()));
+            CreateMap<TodoDto, TodoEntity>();
         }
     }
 }

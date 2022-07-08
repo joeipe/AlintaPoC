@@ -14,5 +14,11 @@ namespace AlintaPoC.Application.Services
         void AddPerson(PersonDto value);
         void UpdatePerson(PersonDto value);
         void DeletePerson(int id);
+
+        Task<IList<TodoDto>> GetAllTodoAsync();
+        Task<TodoDto> GetTodoByIdAsync(string partitionKey, string rowKey);
+        Task AddTodoAsync(TodoDto value);
+        Task UpdateTodoAsync(TodoDto value);
+        Task DeleteTodoAsync(string partitionKey, string rowKey);
     }
 }
