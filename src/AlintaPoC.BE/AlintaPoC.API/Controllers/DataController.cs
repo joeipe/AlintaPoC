@@ -1,5 +1,6 @@
 ﻿using AlintaPoC.Application.Services;
 using AlintaPoC.Contracts;
+using AlintaPoC.Integration.RedisCache;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,13 +15,16 @@ namespace AlintaPoC.API.Controllers
     {
         private readonly ILogger<DataController> _logger;
         private readonly IAppService _appService;
+        private readonly CacheService _cacheService;
 
         public DataController(
             ILogger<DataController> logger,
-            IAppService appService)
+            IAppService appService,
+            CacheService cacheService)
         {
             _logger = logger;
             _appService = appService;
+            _cacheService = cacheService;
         }
 
         [HttpGet]
@@ -30,9 +34,16 @@ namespace AlintaPoC.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetPersonById(int id)
+        public async Task<ActionResult> GetPersonById(int id)
         {
-            var vm = _appService.GetPersonById(id);
+            PersonDto vm = null;
+            var key = $"GetPersonById/{id}";
+            vm = await _cacheService.GetFromCacheAsync<PersonDto>(key);
+            if (vm == null)
+            {
+                vm = _appService.GetPersonById(id);
+                await _cacheService.SetCacheAsync(key, vm, null);
+            }
 
             if (vm == null)
             {
@@ -51,17 +62,23 @@ namespace AlintaPoC.API.Controllers
         }
 
         [HttpPut]
-        public ActionResult UpdatePerson([FromBody] PersonDto value)
+        public async Task<ActionResult> UpdatePerson([FromBody] PersonDto value)
         {
             _appService.UpdatePerson(value);
+
+            var key = $"GetPersonById/{value.Id}";
+            await _cacheService.ClearCacheAsync(key);
 
             return Response();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeletePerson(int id)
+        public async Task<ActionResult> DeletePerson(int id)
         {
             _appService.DeletePerson(id);
+
+            var key = $"GetPersonById/{id}";
+            await _cacheService.ClearCacheAsync(key);
 
             return Response();
         }

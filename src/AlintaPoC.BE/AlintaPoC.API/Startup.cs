@@ -2,6 +2,7 @@ using AlintaPoC.API.Configurations;
 using AlintaPoC.Application.Services;
 using AlintaPoC.Data;
 using AlintaPoC.Data.Services;
+using AlintaPoC.Integration.RedisCache;
 using AlintaPoC.Integration.TableStorage.Repositories;
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Builder;
@@ -23,19 +24,33 @@ namespace AlintaPoC.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
-
+            
+            if (Env.IsDevelopment())
+            {
+                services.AddDistributedMemoryCache();
+            }
+            else
+            {
+                services.AddDistributedRedisCache(options =>
+                {
+                    options.Configuration = Configuration.GetConnectionString("RedisConnectionString");
+                    options.InstanceName = "master";
+                });
+            }
             services.AddScoped(c => new TableServiceClient(Configuration.GetConnectionString("StorageConnectionString")));
             services.AddDbContext<DataContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DBConnectionString"))
@@ -44,6 +59,7 @@ namespace AlintaPoC.API
             services.AddScoped<IDataService, DataService>();
             services.AddScoped<IAppService, AppService>();
             services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddScoped<CacheService>();
             services.AddAutoMapperSetup();
 
             services.AddCors(options =>

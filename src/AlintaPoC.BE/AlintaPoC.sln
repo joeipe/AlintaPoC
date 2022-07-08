@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.Application", "Al
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.API", "AlintaPoC.API\AlintaPoC.API.csproj", "{7BDE2722-DD0B-434B-87D6-2AC2498A81D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Integration.TableStorage", "AlintaPoC.Integration.TableStorage\AlintaPoC.Integration.TableStorage.csproj", "{C4BF06FF-5A74-4BFA-8269-0DFDF8EDE84A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.Integration.TableStorage", "AlintaPoC.Integration.TableStorage\AlintaPoC.Integration.TableStorage.csproj", "{C4BF06FF-5A74-4BFA-8269-0DFDF8EDE84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Integration.RedisCache", "AlintaPoC.Integration.RedisCache\AlintaPoC.Integration.RedisCache.csproj", "{9BF46745-96D0-464A-A6DA-9AA61261F899}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{C4BF06FF-5A74-4BFA-8269-0DFDF8EDE84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4BF06FF-5A74-4BFA-8269-0DFDF8EDE84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4BF06FF-5A74-4BFA-8269-0DFDF8EDE84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
