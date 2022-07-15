@@ -1,4 +1,5 @@
 using AlintaPoC.API.Configurations;
+using AlintaPoC.API.Messaging;
 using AlintaPoC.Application.Services;
 using AlintaPoC.Data;
 using AlintaPoC.Data.Services;
@@ -38,7 +39,9 @@ namespace AlintaPoC.API
         {
 
             services.AddControllers();
-            
+
+            services.AddHostedService<AzServiceBusConsumer>();
+
             if (Env.IsDevelopment())
             {
                 services.AddDistributedMemoryCache();
