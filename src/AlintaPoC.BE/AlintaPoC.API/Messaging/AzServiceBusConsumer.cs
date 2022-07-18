@@ -23,16 +23,16 @@ namespace AlintaPoC.API.Messaging
 
             var options = new ServiceBusProcessorOptions()
             {
-                MaxConcurrentCalls = 1,
                 AutoCompleteMessages = false,
-                //ReceiveMode = ServiceBusReceiveMode.ReceiveAndDelete
+                MaxConcurrentCalls = 1,
+                MaxAutoLockRenewalDuration = TimeSpan.FromMinutes(10)
             };
             personMessageProcessor = client.CreateProcessor("persontopic", "AlintaPoCApiSubscriptions", options);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            personMessageProcessor.ProcessMessageAsync += PersonMessageHandlerAsync;
+            personMessageProcessor.ProcessMessageAsync += OnPersonMessageProcessedAsync;
             personMessageProcessor.ProcessErrorAsync += ErrorHandlerAsync;
 
             await personMessageProcessor.StartProcessingAsync();
@@ -40,13 +40,20 @@ namespace AlintaPoC.API.Messaging
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            await personMessageProcessor.StartProcessingAsync();
+            await personMessageProcessor.StopProcessingAsync();
             await personMessageProcessor.CloseAsync();
         }
 
-        private async Task PersonMessageHandlerAsync(ProcessMessageEventArgs args)
+        private async Task OnPersonMessageProcessedAsync(ProcessMessageEventArgs args)
         {
-            var message = args.Message.Body.ToString();
+            try
+            {
+                var message = args.Message.Body.ToString();
+            }
+            catch (Exception ex)
+            {
+                await args.DeadLetterMessageAsync(args.Message); //Complete, Abandon, Dead-lettter, Defer
+            }
 
             await args.CompleteMessageAsync(args.Message);
         }

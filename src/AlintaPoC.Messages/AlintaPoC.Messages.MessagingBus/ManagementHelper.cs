@@ -65,7 +65,9 @@ namespace AlintaPoC.Messages.MessagingBus
         public async Task CreateTopicAsync(string topicName)
         {
             Console.Write("Creating topic {0}...", topicName);
-            var description = await _administrationClient.CreateTopicAsync(topicName);
+            var description = GetTopicDescription(topicName);
+            //var createdDescription = await _administrationClient.CreateTopicAsync(topicName);
+            var createdDescription = await _administrationClient.CreateTopicAsync(description);
             Console.WriteLine("Done!");
         }
 
@@ -73,6 +75,27 @@ namespace AlintaPoC.Messages.MessagingBus
         {
             Console.Write("Creating subscription {0}/subscriptions/{1}...", topicName, subscriptionName);
             var description = await _administrationClient.CreateSubscriptionAsync(topicName, subscriptionName);
+            Console.WriteLine("Done!");
+        }
+
+        // "region = 'USA'"
+        // "items > 30"
+        // "loyalty = true AND region = 'USA'"
+        public async Task CreateSubscriptionWithSqlFilter(string topicName, string subscriptionName, string sqlExpression) 
+        {
+            Console.WriteLine($"Creating Subscription with SQL Filter{topicName}/{subscriptionName} ({sqlExpression})");
+            var subscriptionOptions = new CreateSubscriptionOptions(topicName, subscriptionName);
+            var ruleOptions = new CreateRuleOptions("Default", new SqlRuleFilter(sqlExpression));
+            var description = await _administrationClient.CreateSubscriptionAsync(subscriptionOptions, ruleOptions);
+            Console.WriteLine("Done!");
+        }
+
+        public async Task CreateSubscriptionWithCorrelationFilter(string topicName, string subscriptionName, string correlationId)
+        {
+            Console.WriteLine($"Creating Subscription with Correlation Filter{topicName}/{subscriptionName} ({correlationId})");
+            var subscriptionOptions = new CreateSubscriptionOptions(topicName, subscriptionName);
+            var ruleOptions = new CreateRuleOptions("Default", new CorrelationRuleFilter(correlationId));
+            var description = await _administrationClient.CreateSubscriptionAsync(subscriptionOptions, ruleOptions);
             Console.WriteLine("Done!");
         }
 
@@ -97,6 +120,19 @@ namespace AlintaPoC.Messages.MessagingBus
         public CreateQueueOptions GetQueueDescription(string name)
         {
             return new CreateQueueOptions(name)
+            {
+                //RequiresDuplicateDetection = true,
+                //DuplicateDetectionHistoryTimeWindow = TimeSpan.FromMinutes(10),
+                //RequiresSession = true,
+                //MaxDeliveryCount = 20,
+                //DefaultMessageTimeToLive = TimeSpan.FromHours(1),
+                //EnableDeadLetteringOnMessageExpiration = true
+            };
+        }
+
+        public CreateTopicOptions GetTopicDescription(string name)
+        {
+            return new CreateTopicOptions(name)
             {
                 //RequiresDuplicateDetection = true,
                 //DuplicateDetectionHistoryTimeWindow = TimeSpan.FromMinutes(10),

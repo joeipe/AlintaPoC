@@ -29,8 +29,16 @@ namespace AlintaPoC.Messages.MessagingBus
             var message = new ServiceBusMessage(text) 
             { 
                 Subject = "AlintaPoC.Messages",
-                ContentType = "application/json"
+                ContentType = "application/json",
+                // MessageId = "" // Set this for duplicate detection
+                //CorrelationId = "" Set this for Correlation filter - routing
+                //SessionId = "" // Set this for Correlation grouping
             };
+
+            // Set this for Sql filter
+            //message.ApplicationProperties.Add("region", "US");
+            //message.ApplicationProperties.Add("items", 20);
+
             await sender.SendMessageAsync(message);
             await sender.CloseAsync();
         }
