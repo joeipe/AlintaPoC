@@ -7,7 +7,7 @@ namespace AlintaPoC.Messages.Sender
 {
     internal class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
