@@ -10,11 +10,11 @@ namespace AlintaPoC.Messages.MessagingBus
 {
     public class AzServiceBus : IBus
     {
-        private readonly string _connectionString;
+        private readonly ServiceBusClient _client;
 
         public AzServiceBus(string connectionString)
         {
-            _connectionString = connectionString;
+            _client = new ServiceBusClient(connectionString);
         }
 
         public void Send(string message, string topicName)
@@ -24,12 +24,15 @@ namespace AlintaPoC.Messages.MessagingBus
 
         private async Task SendTextStringAsync(string text, string topicName)
         {
-            await using (var client = new ServiceBusClient(_connectionString))
-            {
-                ServiceBusSender sender = client.CreateSender(topicName);
+            ServiceBusSender sender = _client.CreateSender(topicName);
 
-                await sender.SendMessageAsync(new ServiceBusMessage(text));
-            }
+            var message = new ServiceBusMessage(text) 
+            { 
+                Subject = "AlintaPoC.Messages",
+                ContentType = "application/json"
+            };
+            await sender.SendMessageAsync(message);
+            await sender.CloseAsync();
         }
     }
 }

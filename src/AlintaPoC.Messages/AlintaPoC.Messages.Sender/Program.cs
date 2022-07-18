@@ -16,6 +16,17 @@ namespace AlintaPoC.Messages.Sender
 
             //Manage(serviceBusConnectionString);
 
+            /*
+            // Create an administraion client to manage artifacts
+            var serviceBusAdministrationClient = new ServiceBusAdministrationClient(serviceBusConnectionString);
+
+            //Create a topic if it doesnot exist
+            if (!await serviceBusAdministrationClient.TopicExistsAsync(topicName))
+            {
+                await serviceBusAdministrationClient.CreateTopicAsync(topicName);
+            }
+            */
+
             MessageBus messageBus = new MessageBus(new AzServiceBus(serviceBusConnectionString));
             var person = new { id = 0, firstName = "J", lastName = "Bond", doB = "26/04/1981" };
             messageBus.SendMessage(person, topicName);
