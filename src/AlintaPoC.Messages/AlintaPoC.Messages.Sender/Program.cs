@@ -14,7 +14,7 @@ namespace AlintaPoC.Messages.Sender
             var serviceBusConnectionString = "Endpoint=sb://alintapocmessaging.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=UY6efbRVDvNzW1BL5a4soZB6qT1iZX/nI/Qgq6DGu98=";
             var topicName = "persontopic";
 
-            Manage(serviceBusConnectionString);
+            //Manage(serviceBusConnectionString);
 
             MessageBus messageBus = new MessageBus(new AzServiceBus(serviceBusConnectionString));
             var person = new { id = 0, firstName = "J", lastName = "Bond", doB = "26/04/1981" };
