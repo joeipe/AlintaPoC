@@ -25,15 +25,16 @@ namespace AlintaPoC.API.Messaging
             {
                 AutoCompleteMessages = false,
                 MaxConcurrentCalls = 1,
-                MaxAutoLockRenewalDuration = TimeSpan.FromMinutes(10)
+                MaxAutoLockRenewalDuration = TimeSpan.FromMinutes(10),
+                //SubQueue = SubQueue.DeadLetter
             };
             personMessageProcessor = client.CreateProcessor("persontopic", "AlintaPoCApiSubscriptions", options);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            personMessageProcessor.ProcessMessageAsync += OnPersonMessageProcessedAsync;
-            personMessageProcessor.ProcessErrorAsync += ErrorHandlerAsync;
+            personMessageProcessor.ProcessMessageAsync += ProcessPersonMessageAsync;
+            personMessageProcessor.ProcessErrorAsync += ProcessErrorAsync;
 
             await personMessageProcessor.StartProcessingAsync();
         }
@@ -44,23 +45,27 @@ namespace AlintaPoC.API.Messaging
             await personMessageProcessor.CloseAsync();
         }
 
-        private async Task OnPersonMessageProcessedAsync(ProcessMessageEventArgs args)
+        private async Task ProcessPersonMessageAsync(ProcessMessageEventArgs args)
         {
             try
             {
                 var message = args.Message.Body.ToString();
+
+                await args.CompleteMessageAsync(args.Message);
             }
             catch (Exception ex)
             {
-                await args.DeadLetterMessageAsync(args.Message); //Complete, Abandon, Dead-lettter, Defer
+                //Complete, Abandon, Dead-lettter, Defer
+                if (args.Message.DeliveryCount > 5)
+                {
+                    await args.DeadLetterMessageAsync(args.Message, ex.Message, ex.ToString());
+                }
             }
-
-            await args.CompleteMessageAsync(args.Message);
         }
 
-        private async Task ErrorHandlerAsync(ProcessErrorEventArgs args)
+        private async Task ProcessErrorAsync(ProcessErrorEventArgs args)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
