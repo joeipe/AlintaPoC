@@ -97,7 +97,10 @@ namespace AlintaPoC.API
 
             app.ConfigureCustomExceptionMiddleware();
 
-            dataContext.Database.Migrate();
+            if (dataContext.Database.IsSqlServer())
+            {
+                dataContext.Database.Migrate();
+            } 
 
             app.UseHttpsRedirection();
 

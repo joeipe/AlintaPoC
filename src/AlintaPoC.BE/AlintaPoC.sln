@@ -17,7 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.API", "AlintaPoC.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.Integration.TableStorage", "AlintaPoC.Integration.TableStorage\AlintaPoC.Integration.TableStorage.csproj", "{C4BF06FF-5A74-4BFA-8269-0DFDF8EDE84A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Integration.RedisCache", "AlintaPoC.Integration.RedisCache\AlintaPoC.Integration.RedisCache.csproj", "{9BF46745-96D0-464A-A6DA-9AA61261F899}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.Integration.RedisCache", "AlintaPoC.Integration.RedisCache\AlintaPoC.Integration.RedisCache.csproj", "{9BF46745-96D0-464A-A6DA-9AA61261F899}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D455C4E6-1C22-4DD1-9002-05DB26F4D4F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.API.IntegrationTests", "AlintaPoC.API.IntegrationTests\AlintaPoC.API.IntegrationTests.csproj", "{05FFEC9F-B637-4E7C-B46D-280E9E75296A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.API.IntegrationSQLTests", "AlintaPoC.API.IntegrationSQLTests\AlintaPoC.API.IntegrationSQLTests.csproj", "{ADBC7DF1-BE65-406F-9422-3F316625E575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +63,21 @@ Global
 		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BF46745-96D0-464A-A6DA-9AA61261F899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05FFEC9F-B637-4E7C-B46D-280E9E75296A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05FFEC9F-B637-4E7C-B46D-280E9E75296A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05FFEC9F-B637-4E7C-B46D-280E9E75296A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05FFEC9F-B637-4E7C-B46D-280E9E75296A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADBC7DF1-BE65-406F-9422-3F316625E575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADBC7DF1-BE65-406F-9422-3F316625E575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADBC7DF1-BE65-406F-9422-3F316625E575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADBC7DF1-BE65-406F-9422-3F316625E575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{05FFEC9F-B637-4E7C-B46D-280E9E75296A} = {D455C4E6-1C22-4DD1-9002-05DB26F4D4F1}
+		{ADBC7DF1-BE65-406F-9422-3F316625E575} = {D455C4E6-1C22-4DD1-9002-05DB26F4D4F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5AFA2E1E-75CA-4080-897D-0AB0ABB5E5A1}
