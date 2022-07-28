@@ -99,8 +99,12 @@ namespace AlintaPoC.API
 
             if (dataContext.Database.IsSqlServer())
             {
-                dataContext.Database.Migrate();
-            } 
+                var conStr = dataContext.Database.GetConnectionString();
+                if (!conStr.Contains("TestAlintaPoCDb_Test"))
+                {
+                    dataContext.Database.Migrate();
+                }
+            }
 
             app.UseHttpsRedirection();
 
