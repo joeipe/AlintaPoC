@@ -1,4 +1,5 @@
 ﻿using AlintaPoC.Data;
+using AlintaPoC.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -17,6 +18,9 @@ namespace AlintaPoC.API.IntegrationSQLTests
     {
         string DBConnectionString = "Server=.;Database=TestAlintaPoCDb_Test;Trusted_Connection=True;";
         //string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=alintapocstorage;AccountKey=uDgvz0AMGPFgOzS5dLhU/2O8fR+BRtWr+MJ+TCZAa7Rub7tjYInljOZIkeUowsn/ktDcB+hChXow+AStj4Zc5A==;EndpointSuffix=core.windows.net";
+
+        private readonly object _lock = new object();
+        private static bool _databaseInitialized;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -50,7 +54,7 @@ namespace AlintaPoC.API.IntegrationSQLTests
                 try
                 {
                     // Seed the database with test data.
-                    //SeedInMemoryStore(db);
+                    SeedDb(db);
                 }
                 catch (Exception ex)
                 {
@@ -73,6 +77,32 @@ namespace AlintaPoC.API.IntegrationSQLTests
                 .Options);
 
             context.Database.EnsureDeleted();
+        }
+
+        private void SeedDb(DataContext context)
+        {
+            if (!context.People.Any())
+            {
+                context.People.Add(new Person
+                {
+                    FirstName = "John",
+                    LastName = "Doe"
+                });
+
+                context.People.Add(new Person
+                {
+                    FirstName = "Jane",
+                    LastName = "Doe"
+                });
+
+                context.People.Add(new Person
+                {
+                    FirstName = "Max",
+                    LastName = "Mustermann"
+                });
+
+                context.SaveChanges();
+            }
         }
     }
 }
