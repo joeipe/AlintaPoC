@@ -1,5 +1,7 @@
 ﻿using AlintaPoC.Data;
 using AlintaPoC.Domain;
+using Docker.DotNet;
+using Docker.DotNet.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -11,13 +13,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit;
 
-namespace AlintaPoC.API.IntegrationSQLTests
+namespace AlintaPoC.API.IntegrationDockerSQLTests
 {
-    public class ApiWebApplicationFactory : WebApplicationFactory<Startup>
+    public class ApiWebApplicationFactory : WebApplicationFactory<Startup>, IAsyncLifetime
     {
-        string DBConnectionString = "Server=.;Database=TestAlintaPoCDb_Test;Trusted_Connection=True;";
+        private readonly DockerClient _dockerClient;
+        private const string ContainerImageUri = "mcr.microsoft.com/mssql/server:2022-latest";
+        private string _containerId;
+
+        //"Server=.,1434;Database=TestAlintaPoCDb_Test;User ID=sa;Password=Admin1234;Trusted_Connection=True;"; 
+        string DBConnectionString = "Server=.,1434;Database=TestAlintaPoCDb_Test;User ID=sa;Password=Admin1234;"; 
         //string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=alintapocstorage;AccountKey=uDgvz0AMGPFgOzS5dLhU/2O8fR+BRtWr+MJ+TCZAa7Rub7tjYInljOZIkeUowsn/ktDcB+hChXow+AStj4Zc5A==;EndpointSuffix=core.windows.net";
+
+        public ApiWebApplicationFactory()
+        {
+            _dockerClient = new DockerClientConfiguration(new Uri("npipe://./pipe/docker_engine")).CreateClient();
+        }
+
+        public async Task InitializeAsync()
+        {
+            await PullImage();
+
+            await StartContainer();
+        }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -33,7 +53,10 @@ namespace AlintaPoC.API.IntegrationSQLTests
 
                 // Add DataContext using an in-memory database for testing.
                 services.AddDbContext<DataContext>(options =>
-                    options.UseSqlServer(DBConnectionString)
+                    options.UseSqlServer(DBConnectionString, builder => 
+                    { 
+                        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    })
                 );
 
                 // Build the service provider.
@@ -60,20 +83,54 @@ namespace AlintaPoC.API.IntegrationSQLTests
             });
         }
 
-        protected override void Dispose(bool disposing)
+        public async Task DisposeAsync()
         {
-            DeleteDb();
+            if (_containerId != null)
+            {
+                await _dockerClient.Containers.KillContainerAsync(_containerId, new ContainerKillParameters());
 
-            base.Dispose(disposing);
+                await _dockerClient.Containers.RemoveContainerAsync(_containerId, new ContainerRemoveParameters());
+            }
         }
 
-        private void DeleteDb()
+        private async Task PullImage()
         {
-            var context = new DataContext(new DbContextOptionsBuilder<DataContext>()
-                .UseSqlServer(DBConnectionString)
-                .Options);
+            await _dockerClient.Images.CreateImageAsync(new ImagesCreateParameters
+            {
+                FromImage = ContainerImageUri
+            },
+            new AuthConfig(),
+            new Progress<JSONMessage>());
+        }
 
-            context.Database.EnsureDeleted();
+        private async Task StartContainer()
+        {
+            var response = await _dockerClient.Containers.CreateContainerAsync(new CreateContainerParameters
+            {
+                Image = ContainerImageUri,
+                AttachStderr = true,
+                AttachStdin = true,
+                AttachStdout = true,
+                Env = new[] { "ACCEPT_EULA=Y", $"SA_PASSWORD=Admin1234" },
+                ExposedPorts = new Dictionary<string, EmptyStruct>
+                {
+                    {
+                        "1433", default(EmptyStruct)
+                    }
+                },
+                HostConfig = new HostConfig
+                {
+                    PortBindings = new Dictionary<string, IList<PortBinding>>
+                    {
+                        { "1433", new List<PortBinding> { new PortBinding { HostPort = "1434" } } }
+                    },
+                    PublishAllPorts = true
+                }
+            });
+
+            _containerId = response.ID;
+
+            await _dockerClient.Containers.StartContainerAsync(_containerId, null);
         }
 
         private void SeedDb(DataContext context)
@@ -103,3 +160,4 @@ namespace AlintaPoC.API.IntegrationSQLTests
         }
     }
 }
+
