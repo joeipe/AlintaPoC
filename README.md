@@ -9,7 +9,7 @@
 - Azure Table Storage
 - Azure Redis Cache
 - Azure Service Bus
-- Integration tests with *WebApplicationFactory*
+- Integration tests <sup>WebApplicationFactory</sup>
   - InMemory SQL
   - SQL
   - SQL in docker
