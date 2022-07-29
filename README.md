@@ -10,4 +10,6 @@
 - Azure Redis Cache
 - Azure Service Bus
 - Integration tests with *WebApplicationFactory*
-<sub>This is a subscript text</sub>
+  - InMemory
+  - SQL
+  - SQL in docker
