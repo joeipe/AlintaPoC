@@ -23,7 +23,6 @@ namespace AlintaPoC.API.IntegrationDockerSQLTests
         private const string ContainerImageUri = "mcr.microsoft.com/mssql/server:2022-latest";
         private string _containerId;
 
-        //"Server=.,1434;Database=TestAlintaPoCDb_Test;User ID=sa;Password=Admin1234;Trusted_Connection=True;"; 
         string DBConnectionString = "Server=.,1434;Database=TestAlintaPoCDb_Test;User ID=sa;Password=Admin1234;"; 
         //string StorageConnectionString = "DefaultEndpointsProtocol=https;AccountName=alintapocstorage;AccountKey=uDgvz0AMGPFgOzS5dLhU/2O8fR+BRtWr+MJ+TCZAa7Rub7tjYInljOZIkeUowsn/ktDcB+hChXow+AStj4Zc5A==;EndpointSuffix=core.windows.net";
 
