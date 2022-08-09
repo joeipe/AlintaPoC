@@ -7,5 +7,9 @@
 - .NetCore
 - Entity Framework
 - Azure Table Storage
-- Redic Cache
+- Azure Redis Cache
 - Azure Service Bus
+- Integration tests <sup>WebApplicationFactory</sup>
+  - InMemory SQL
+  - SQL
+  - SQL in docker
