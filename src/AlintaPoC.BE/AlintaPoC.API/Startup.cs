@@ -7,12 +7,14 @@ using AlintaPoC.Integration.RedisCache;
 using AlintaPoC.Integration.TableStorage.Repositories;
 using Azure.Data.Tables;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
@@ -80,6 +82,11 @@ namespace AlintaPoC.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AlintaPoC.API", Version = "v1" });
             });
+
+            services
+                .AddHealthChecks()
+                .AddDbContextCheck<DataContext>()
+                .AddAzureServiceBusTopicHealthCheck(Configuration.GetConnectionString("ServiceBusConnectionString"), "persontopic", "Person Topic", HealthStatus.Unhealthy);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -114,6 +121,7 @@ namespace AlintaPoC.API
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultHealthChecks();
                 endpoints.MapControllers();
             });
         }
