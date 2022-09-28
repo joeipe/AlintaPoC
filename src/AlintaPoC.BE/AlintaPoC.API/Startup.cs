@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.FeatureManagement;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,8 @@ namespace AlintaPoC.API
                     .AllowCredentials();
                 });
             });
+
+            services.AddFeatureManagement();
 
             services.AddSwaggerGen(c =>
             {

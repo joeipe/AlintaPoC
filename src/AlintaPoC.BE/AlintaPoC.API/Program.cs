@@ -26,6 +26,12 @@ namespace AlintaPoC.API
                 {
                     appConfig.AddJsonFile($"appsettings.json", false, true);
                     appConfig.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true);
+
+                    var AppConfigConnectionString = "Endpoint=https://alintapoc-config.azconfig.io;Id=crjy-lf-s0:HyPbEvZEjy09DJJhjWtv;Secret=zJFlCFKHst9eqwNhc6BmVh9+DGt9g2+1PBHtNDV/SWE=";
+                    appConfig.AddAzureAppConfiguration(options =>
+                        options.Connect(AppConfigConnectionString)
+                               .UseFeatureFlags()
+                    );
                 });
     }
 }
