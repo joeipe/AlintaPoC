@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlintaPoC.Application\AlintaPoC.Application.csproj" />
+    <ProjectReference Include="..\AlintaPoC.Integration.BlobStorage\AlintaPoC.Integration.BlobStorage.csproj" />
     <ProjectReference Include="..\AlintaPoC.Integration.RedisCache\AlintaPoC.Integration.RedisCache.csproj" />
     <ProjectReference Include="..\AlintaPoC.Integration.TableStorage\AlintaPoC.Integration.TableStorage.csproj" />
   </ItemGroup>

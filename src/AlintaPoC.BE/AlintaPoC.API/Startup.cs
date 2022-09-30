@@ -3,6 +3,7 @@ using AlintaPoC.API.Messaging;
 using AlintaPoC.Application.Services;
 using AlintaPoC.Data;
 using AlintaPoC.Data.Services;
+using AlintaPoC.Integration.BlobStorage;
 using AlintaPoC.Integration.RedisCache;
 using AlintaPoC.Integration.TableStorage.Repositories;
 using Azure.Data.Tables;
@@ -57,6 +58,7 @@ namespace AlintaPoC.API
                     options.InstanceName = "master";
                 });
             }
+            services.AddScoped<IAzFileStorage>(c => new AzFileStorage(Configuration.GetConnectionString("StorageConnectionString")));
             services.AddScoped(c => new TableServiceClient(Configuration.GetConnectionString("StorageConnectionString")));
             services.AddDbContext<DataContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DBConnectionString"))

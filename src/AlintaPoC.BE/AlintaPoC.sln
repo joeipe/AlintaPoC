@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.API.IntegrationTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.API.IntegrationSQLTests", "AlintaPoC.API.IntegrationSQLTests\AlintaPoC.API.IntegrationSQLTests.csproj", "{ADBC7DF1-BE65-406F-9422-3F316625E575}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.API.IntegrationDockerSQLTests", "AlintaPoC.API.IntegrationDockerSQLTests\AlintaPoC.API.IntegrationDockerSQLTests.csproj", "{1A12AE86-4D54-466F-BDD8-AB5885AD566A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlintaPoC.API.IntegrationDockerSQLTests", "AlintaPoC.API.IntegrationDockerSQLTests\AlintaPoC.API.IntegrationDockerSQLTests.csproj", "{1A12AE86-4D54-466F-BDD8-AB5885AD566A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlintaPoC.Integration.BlobStorage", "AlintaPoC.Integration.BlobStorage\AlintaPoC.Integration.BlobStorage.csproj", "{F8B5C33C-61B1-444C-92DE-5670D1940495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{1A12AE86-4D54-466F-BDD8-AB5885AD566A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A12AE86-4D54-466F-BDD8-AB5885AD566A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A12AE86-4D54-466F-BDD8-AB5885AD566A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8B5C33C-61B1-444C-92DE-5670D1940495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8B5C33C-61B1-444C-92DE-5670D1940495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8B5C33C-61B1-444C-92DE-5670D1940495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8B5C33C-61B1-444C-92DE-5670D1940495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
